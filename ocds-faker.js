@@ -10,7 +10,6 @@ program
     .option('-r --release-schema [schema]', 'Path to OCDS JSON release-schema', 'release-schema.json')
     .parse(process.argv);
 
-
 packageSchema = program.releasePackageSchema.slice(0, 1) === '/' ?
                 require(program.releasePackageSchema) :
                 require('./' + program.releasePackageSchema);
@@ -28,11 +27,9 @@ jsf.option({
 });
 
 
-var modifySchema = function(schema, ignoreNull) {
+var modifySchema = function(schema) {
     var prop;
     var definition;
-
-    ignoreNull = (typeof ignoreNull !== 'undefined') ? ignoreNull : program.ignoreNull;
 
     for (prop in schema.properties) {
         if (prop === 'id') {
@@ -42,7 +39,7 @@ var modifySchema = function(schema, ignoreNull) {
         if (schema.properties[prop].type === 'object') {
             modifySchema(schema.properties[prop])
         }
-        if (Array.isArray(schema.properties[prop].type) && ignoreNull) {
+        if (Array.isArray(schema.properties[prop].type) && program.ignoreNull) {
             if (schema.properties[prop].type.indexOf('null') != -1) {
                 // This assumes that 'null' is always the last item in an array of types.
                 schema.properties[prop].type.pop()

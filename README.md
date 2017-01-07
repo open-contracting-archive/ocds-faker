@@ -7,7 +7,7 @@ Example usage:
 `node ocds-faker.js -i -p ../schemas/release-package-schema.json -r ../schemas/release-schema.json`
 
 Options:
-* `-i`: ignore `null` type in arrays of valid types
+* `-i`: ignore _"null"_ type in arrays of valid types
 * `-p [/path/to/schema]`: Path to OCDS JSON release-package-schema
 * `-r [/path/to/schema]`: Path to OCDS JSON release-schema
 
